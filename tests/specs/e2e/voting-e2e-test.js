@@ -28,8 +28,8 @@ if(process.env.dbHost) {
               votesB = row.count;
             }
           }, result);
-          console.log('before - votesA: ' + votesA);
-          console.log('before - votesB: ' + votesB);
+//          console.log('before - votesA: ' + votesA);
+//          console.log('before - votesB: ' + votesB);
           done();
         }
       });
@@ -76,8 +76,8 @@ if(process.env.dbHost) {
             }
           }, result);
 
-          console.log('voteA=' + voteA);
-          console.log('voteB=' + voteB);
+//          console.log('voteA=' + voteA);
+//          console.log('voteB=' + voteB);
           if(voteA){
             expect(voteA-votesA).equal(1);
           }

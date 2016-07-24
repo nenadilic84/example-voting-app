@@ -12,8 +12,8 @@ if(process.env.dbHost) {
 
 describe('Voting page tests', function () {
 
-  console.log('AppHost: '+appHost);
-  console.log('DbHost: '+dbHost);
+//  console.log('AppHost: '+appHost);
+//  console.log('DbHost: '+dbHost);
 
   it('open ui and check title', function (done) {
     var options = {
