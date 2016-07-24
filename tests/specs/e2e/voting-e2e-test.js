@@ -13,7 +13,7 @@ if(process.env.dbHost) {
 }
 
 
-  var votesA, votesB;
+  var votesA=0, votesB=0;
 
   it('check database before voting', function (done) {
     pg.connect('postgres://postgres@'+dbHost+'/postgres').then(function (client) {
@@ -28,6 +28,8 @@ if(process.env.dbHost) {
               votesB = row.count;
             }
           }, result);
+          console.log('before - votesA: ' + votesA);
+          console.log('before - votesB: ' + votesB);
           done();
         }
       });
@@ -74,10 +76,14 @@ if(process.env.dbHost) {
             }
           }, result);
 
-//          console.log('voteA=' + voteA);
-//          console.log('voteB=' + voteB);
-          expect(voteA-votesA).equal(1);
-          expect(voteB-votesB).equal(0);
+          console.log('voteA=' + voteA);
+          console.log('voteB=' + voteB);
+          if(voteA){
+            expect(voteA-votesA).equal(1);
+          }
+          if(voteB){
+            expect(voteB-votesB).equal(0);
+          }
           done();
         }
       });
