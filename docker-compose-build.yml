@@ -1,0 +1,14 @@
+version: "2"
+
+services:
+  vote:
+    build: ./vote
+    image: gaiaadm/example-voting-app-vote:latest
+
+  worker:
+    build: ./worker
+    image: gaiaadm/example-voting-app-worker:latest
+
+  result:
+    build: ./result
+    image: gaiaadm/example-voting-app-result:latest
