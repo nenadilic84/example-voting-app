@@ -1,11 +1,23 @@
 var request = require('request');
 var pg = require('pg');
 
+var appHost='localhost:5000';
+var dbHost='localhost';
+if(process.env.appHost) {
+  appHost=process.env.appHost;
+}
+if(process.env.dbHost) {
+  dbHost=process.env.dbHost
+}
+
 describe('Voting page tests', function () {
+
+  console.log('AppHost: '+appHost);
+  console.log('DbHost: '+dbHost);
 
   it('open ui and check title', function (done) {
     var options = {
-      url: 'http://localhost:5000',
+      url: 'http://'+appHost,
       method: 'GET'
     };
     request(options, function (error, resp, body) {
@@ -20,7 +32,7 @@ describe('Voting page tests', function () {
 
   it('vote cats', function (done) {
     var options = {
-      url: 'http://localhost:5000',
+      url: 'http://'+appHost,
       method: 'POST',
       formData: {
         vote: 'a'

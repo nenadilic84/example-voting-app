@@ -3,15 +3,20 @@ var pg = require('pg');
 
 describe('E2E voting tests', function () {
 
-  var pgHost='localhost';
-  if(process.env.pgHost){
-    pgHost = process.env.pgHost;
-  }
+var appHost='localhost:5000';
+var dbHost='localhost';
+if(process.env.appHost) {
+  appHost=process.env.appHost;
+}
+if(process.env.dbHost) {
+  dbHost=process.env.dbHost
+}
+
 
   var votesA, votesB;
 
   it('check database before voting', function (done) {
-    pg.connect('postgres://postgres@'+pgHost+'/postgres').then(function (client) {
+    pg.connect('postgres://postgres@'+dbHost+'/postgres').then(function (client) {
       client.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote', [], function (errrr, result) {
         if (errrr) {
           console.error("Error performing query: " + errrr);
@@ -33,7 +38,7 @@ describe('E2E voting tests', function () {
 
   it('vote cats and verify', function (done) {
     var options = {
-      url: 'http://localhost:5000',
+      url: 'http://'+appHost,
       method: 'POST',
       formData: {
         vote: 'a'
@@ -56,7 +61,7 @@ describe('E2E voting tests', function () {
   it('check database after voting', function (done) {
     var voteA = 0;
     var voteB = 0;
-    pg.connect('postgres://postgres@'+pgHost+'/postgres').then(function (client) {
+    pg.connect('postgres://postgres@'+dbHost+'/postgres').then(function (client) {
       client.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote', [], function (errrr, result) {
         if (errrr) {
           console.error("Error performing query: " + errrr);
