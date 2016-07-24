@@ -12,8 +12,8 @@ if(process.env.dbHost) {
 
 describe('Voting page tests', function () {
 
-  console.log('AppHost: '+appHost);
-  console.log('DbHost: '+dbHost);
+//  console.log('AppHost: '+appHost);
+//  console.log('DbHost: '+dbHost);
 
   it('open ui and check title', function (done) {
     var options = {
@@ -24,7 +24,7 @@ describe('Voting page tests', function () {
       expect(resp.statusCode).equal(200);
       var titleStart = body.indexOf('<title>');
       var titleEnd = body.indexOf('</title>');
-      expect(body.substring(titleStart + '<title>'.length, titleEnd - 1)).equal('Cats vs Dogs');
+      expect(body.substring(titleStart + '<title>'.length, titleEnd - 1).indexOf(' vs ')).to.be.above(-1);
 //      console.log(body);
       done();
     })

@@ -15,7 +15,7 @@
 - vote-page-test.js
   - Name: open ui and check title
     - How to fail:
-      - modify title in vote/templates/index.html
+      - modify title in vote/templates/index.html so than no 'vs' appears in the title
       - modify option_a or option_b in vote/app.py
   - Name: vote cats
     - How to fail:
@@ -47,6 +47,6 @@ NOTE: This change should not affect tests behaviour
 
 ### Results
 - change in result/views/index.html
-  - <title>Rabbits vs Fishes -- Result</title>
-  - <div class="label">Rabbits</div>
-  - <div class="label">Fishes</div>
+  - \<title\>Rabbits vs Fishes -- Result\</title\>
+  - \<div class="label"\>Rabbits\</div\>
+  - \<div class="label"\>Fishes\</div\>
