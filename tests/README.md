@@ -12,7 +12,7 @@
 
 
 ### Functional:
-- vote-page-test.js
+- Functional tests - voting
   - Name: open ui and check title
     - How to fail:
       - modify title in vote/templates/index.html so than no 'vs' appears in the title
@@ -22,14 +22,13 @@
       - comment out vote=vote line in vote/app.py
 
 ### End-to-end:
-- voting-e2e-test.js
+- Integration tests - voting
   - Name: check database before voting
     - How to fail:
       - stop Postgres DB
   - Name: vote cats and verify
     - How to fail:
       - comment out vote=vote line in vote/app.py
-
   - Name: check database after voting
     - How to fail:
       - stop Postgres DB
