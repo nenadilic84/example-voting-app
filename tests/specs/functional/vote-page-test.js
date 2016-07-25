@@ -10,7 +10,7 @@ if(process.env.dbHost) {
   dbHost=process.env.dbHost
 }
 
-describe('Voting page tests', function () {
+describe('Functional tests - voting', function () {
 
 //  console.log('AppHost: '+appHost);
 //  console.log('DbHost: '+dbHost);
