@@ -12,3 +12,7 @@ services:
   result:
     build: ./result
     image: gaiaadm/example-voting-app-result:latest
+
+  tests:
+    build: ./tests
+    image: gaiaadm/example-voting-app-tests:latest
