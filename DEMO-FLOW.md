@@ -8,7 +8,7 @@ Pre-requests
 2. Bash
 
 
-1. Run Voting App
+1. Deploy Voting App (as services)
 -----
 
 Run in root directory to create new swarm cluster and deploy all application services on it.
@@ -20,10 +20,12 @@ The new Swarm cluster (one master node) will be created and the app will be depl
 The voting app will run at [http://localhost:5000](http://localhost:5000)
 The results app will run at [http://localhost:5001](http://localhost:5001)
 
-2. Deploy Tugbot Testing Framework
+2. Deploy Tugbot Testing Framework (as services)
 ----
 
-    $ TODO: @effi
+Run in root directory to deploy all Tugbot services on it.
+
+    $ ./deploy_tugbot.sh
 
 3. Open Tugbot Dashboard
 ----
