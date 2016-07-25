@@ -1,7 +1,7 @@
 var request = require('request');
 var pg = require('pg');
 
-describe('E2E voting tests', function () {
+describe('Integration tests - voting', function () {
 
 var appHost='localhost:5000';
 var dbHost='localhost';
