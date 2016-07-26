@@ -1,7 +1,9 @@
 #!/bin/bash
 
+set -x
+
 # init swarm (need for service command); if not created
-docker node ls | grep "moby"
+docker node ls 2> /dev/null | grep "Leader"
 if [ $? -ne 0 ]; then
   docker swarm init
 fi
