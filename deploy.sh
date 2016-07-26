@@ -35,17 +35,17 @@ fi
 # create voting-app
 docker service ls --filter "name=voting-app" | grep "voting-app"
 if [ $? -ne 0 ]; then
-  docker service create --name voting-app --network voteapp --publish 5000:80 gaiaadm/example-voting-app-vote
+  docker service create --name voting-app --network voteapp --publish 5000:80 gaiadocker/example-voting-app-vote
 fi
 
 # create result-app
 docker service ls --filter "name=result-app" | grep "result-app"
 if [ $? -ne 0 ]; then
-  docker service create --name result-app --network voteapp --publish 5001:80 gaiaadm/example-voting-app-result
+  docker service create --name result-app --network voteapp --publish 5001:80 gaiadocker/example-voting-app-result
 fi
 
 # create worker-app
 docker service ls --filter "name=worker" | grep "worker"
 if [ $? -ne 0 ]; then
-  docker service create --name worker --network voteapp gaiaadm/example-voting-app-worker
+  docker service create --name worker --network voteapp gaiadocker/example-voting-app-worker
 fi
