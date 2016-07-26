@@ -2,11 +2,11 @@
 
 ### Dockerization:
 - Build
-  - docker build -t gaiaadm/example-voting-app-tests .
+  - docker build -t gaiadocker/example-voting-app-tests .
 - Run standalone
-  - docker run -it --name votests  gaiaadm/example-voting-app-tests
+  - docker run -it --name votests  gaiadocker/example-voting-app-tests
 - Run for example-voting-app swarm
-  - docker service create --name votests --network voteapp --env appHost=voting-app:80 --env dbHost=db --restart-condition none gaiaadm/example-voting-app-tests
+  - docker service create --name votests --network voteapp --env appHost=voting-app:80 --env dbHost=db --restart-condition none gaiadocker/example-voting-app-tests
 - NOTES:
   - if appHost and dbHost are not provided, default values applied (localhost:5000 and localhost accordingly)
 

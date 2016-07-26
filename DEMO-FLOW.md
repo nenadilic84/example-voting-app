@@ -42,7 +42,7 @@ Run in root directory to deploy all Tugbot services on it.
         --env appHost=voting-app:80 \
         --env dbHost=db \
         --restart-condition none \
-        gaiaadm/example-voting-app-tests
+        gaiadocker/example-voting-app-tests
 
     $ TODO: run selected docker-bench-tests tests
 
