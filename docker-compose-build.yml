@@ -2,17 +2,37 @@ version: "2"
 
 services:
   vote:
-    build: ./vote
-    image: gaiadocker/example-voting-app-vote:latest
+    build: 
+      context: ./vote
+      args:
+        - https_proxy
+        - http_proxy
+        - no_proxy
+    image: ${DEMO_REP}/example-voting-app-vote:${DEMO_TAG}
 
   worker:
-    build: ./worker
-    image: gaiadocker/example-voting-app-worker:latest
+    build:
+      context: ./worker
+      args:
+        - https_proxy
+        - http_proxy
+        - no_proxy
+    image: ${DEMO_REP}/example-voting-app-worker:${DEMO_TAG}
 
   result:
-    build: ./result
-    image: gaiadocker/example-voting-app-result:latest
+    build:
+      context: ./result
+      args:
+        - https_proxy
+        - http_proxy
+        - no_proxy
+    image: ${DEMO_REP}/example-voting-app-result:${DEMO_TAG}
 
   tests:
-    build: ./tests
-    image: gaiadocker/example-voting-app-tests:latest
+    build: 
+      context: ./tests
+      args:
+        - https_proxy
+        - http_proxy
+        - no_proxy
+    image: ${DEMO_REP}/example-voting-app-tests:${DEMO_TAG}
