@@ -30,7 +30,7 @@ Run in root directory to deploy all Tugbot services on it.
 3. Open Tugbot Dashboard
 ----
 
-[Thubot Dashboard](http://localhost:4000) **TODO**: make sure to run it on port `4000`.
+[Tugbot Dashboard](http://localhost:8080) **TODO**: now it is configured to run on `8080`. make sure to run it on port `4000`.
 
 **Expected:** see empty dashboard.
 
