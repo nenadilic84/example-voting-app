@@ -65,7 +65,14 @@ Run in root directory to deploy all Tugbot services on it.
 7. Simulate network problems
 ----
 
-**TODO**: @alexei
+Run Pumba (as "interactive" Docker container) to introduce 3 seconds delay for all egress traffic from `result-app` container. Network emulation is activated every minute and lasts for 30 seconds only, after that connection is restored to work normally.
+To stop network emulation, exit Pumba with `Ctrl-C`; wait till Pumba exits gracefully.
+
+    $ docker run -it -v /var/run/docker.sock:/var/run/docker.sock gaiaadm/pumba pumba --debug \
+        --interval 1m \
+        --random netem \
+          --duration 30s \
+          delay --amount 3000 re2:^result
 
 **Expected**: some test might fail now, but should pass, once network emulation stopped.
 
