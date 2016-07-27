@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -x
+
 docker service rm es
 docker service rm tugbot-run
 docker service rm tugbot-collect
