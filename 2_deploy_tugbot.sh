@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Deploy Tugbot services ..."
+
 # create tugbot service
 docker service ls --filter "name=tugbot-run" | grep "tugbot-run"
 if [ $? -ne 0 ]; then

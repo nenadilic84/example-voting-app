@@ -1,6 +1,7 @@
 #!/bin/bash
 
-echo "Demo setup. Overwrite DEMO_TAG, DEMO_REP, DEMO_NET and DEMO_DB_VOL to customize demo environment."
+echo "Deploy example voting application."
+echo "Overwrite DEMO_TAG, DEMO_REP, DEMO_NET and DEMO_DB_VOL to customize demo environment."
 
 [ -z "$DEMO_TAG" ] && DEMO_TAG="latest"
 [ -z "$DEMO_REP" ] && DEMO_REP="gaiadocker"
