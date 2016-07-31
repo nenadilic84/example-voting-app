@@ -96,7 +96,7 @@ if(process.env.dbHost) {
       }, function (err) {
         console.log('error');
       });
-    }, 3000);
+    }, 1000);
   });
 
 });
