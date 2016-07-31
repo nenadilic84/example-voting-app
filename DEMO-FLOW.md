@@ -17,7 +17,7 @@ Run in root directory:
 	
 Docker-compose starts all 5 containers, the example-voting-application consists of.
 
-The voting app will run at [http://localhost:5000](http://localhost:5000)
+The voting app will run at [http://localhost:5000](http://localhost:5000)  
 The results app will run at [http://localhost:5001](http://localhost:5001)
 
 2. Deploy Tugbot Testing Framework
@@ -27,14 +27,15 @@ Run in root directory:
 
     $ ./2_deploy_tugbot.sh
 
-Docker-compose starts tugbot, tugbot-collect and tugbot-result-service. 
-It also starts Elasticsearch and Kibana containers; while it is not mandatory to run both of them on the same host, we added the containers to this script to make the demo preparation easier. Elasticsearch serves as a database for the results collected by tugbot and Kibana is the UI layer.
+Docker-compose starts tugbot, tugbot-collect and tugbot-result-service.  
+It also starts Elasticsearch and Kibana containers; while it is not mandatory to run both of them on the same host, we added the containers to this script to make the demo preparation easier.  
+Elasticsearch serves as a database for the results collected by tugbot and Kibana is the UI layer.
 
 Run in root directory:
 
     $ ./2a_configure_kibana.sh
 
-This script makes some Kibana configurations that make displayig the results simpler. 
+This script configures some objects for Kibana to make seeing the results easier.  
 *** NOTE: *** The UI is still not usable until tugbot sends at least 1 result to Elasticsearch.
 
 3. Open Voting App and Tugbot Dashboard
@@ -61,7 +62,7 @@ Run in root directory:
  
     $ ./1_deploy.sh bad
 	
-**Expected:** Two tests should fail now. "Bad" image contains a bug that prevents the verification in application UI that user has voted as expected. Visually, there is no v sign near your selection and so 2 tests related to the verification are failed. Others still OK, since other parts of UI as well ad backend data flow are not affected by the bug.
+**Expected:** Two tests should fail now. "Bad" image contains a bug that prevents the verification in application UI that user has voted as expected. Visually, there is no v sign near your selection and so 2 tests related to the verification are failed. Others still OK, since other parts of UI as well as the backend data flow are not affected by the bug.
 
 6. Fix Application
 ----
