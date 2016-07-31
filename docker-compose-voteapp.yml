@@ -3,7 +3,7 @@ version: "2"
 services:
 
   voting-app:
-    image: gaiadocker/example-voting-app-vote:latest
+    image: gaiadocker/example-voting-app-vote:${VOTE_TAG}
     ports:
       - 5000:80
     networks:
