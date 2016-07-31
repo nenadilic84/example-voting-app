@@ -16,6 +16,7 @@ if(process.env.dbHost) {
   var votesA=0, votesB=0;
 
   it('check database before voting', function (done) {
+    console.log('dbHost: ' + dbHost);
     pg.connect('postgres://postgres@'+dbHost+'/postgres').then(function (client) {
       client.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote', [], function (errrr, result) {
         if (errrr) {
@@ -34,7 +35,7 @@ if(process.env.dbHost) {
         }
       });
     }, function (err) {
-      console.log('error');
+      console.log('error: ' + err);
     });
   });
 
@@ -54,7 +55,6 @@ if(process.env.dbHost) {
       var votedB = body.substring(ind, ind + 15).indexOf('= "b"');
       expect(votedA).to.be.above(1);
       expect(votedB).equal(-1);
-//      console.log(body);
       done();
     })
   });
@@ -76,8 +76,10 @@ if(process.env.dbHost) {
             }
           }, result);
 
-//          console.log('voteA=' + voteA);
-//          console.log('voteB=' + voteB);
+          console.log('voteA=' + voteA);
+          console.log('votesA=' + votesA);
+          console.log('voteB=' + voteB);
+          console.log('votesB=' + votesB);
           if(voteA){
             expect(voteA-votesA).equal(1);
           }
