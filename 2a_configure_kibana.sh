@@ -1,6 +1,6 @@
-set -x
-# Start Elasticsearch
-# docker run -d --name es -p 9200:9200 -p 9300:9300 elasticsearch:2.3.4
+#!/bin/bash
+
+[ -z "$DEMO_NET" ] && DEMO_NET="voteapp"
 
 # Wait until ES is ready
 curl -XGET http://localhost:9200/_cluster/health?pretty=true | grep "green\|yellow"
@@ -41,7 +41,7 @@ done
 # create Kibana service
 docker service ls --filter "name=kibana" | grep "kibana"
 if [ $? -ne 0 ]; then
-  docker service create --name kibana --network voteapp -e ELASTICSEARCH_URL=http://es:9200 --publish 5601:5601 kibana:4.5.1
+  docker service create --name kibana --network ${DEMO_NET} -e ELASTICSEARCH_URL=http://es:9200 --publish 5601:5601 kibana:4.5.1
 fi
 
 
