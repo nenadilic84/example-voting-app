@@ -1,17 +1,10 @@
 #!/bin/bash
 
-# remove all services
-docker service rm $(docker service ls -q)
+docker-compose -f docker-compose-voteapp.yml kill
+docker-compose -f docker-compose-voteapp.yml rm -f -v
 
-# remove network
-docker network rm voteapp
+# cleanup volumes
+docker volume rm $(docker volume ls -q)
 
-#remove volume; wait some time before remove
-docker volume rm db-data
-while [ $? -ne 0 ]; do
-  sleep 2
-  docker volume rm db-data
-done
-
-# remove swarm cluster
-docker swarm leave --force
+# cleanup network
+docker network rm $(docker network ls --filter "name=example" -q)

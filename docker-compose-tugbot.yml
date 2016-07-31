@@ -1,0 +1,47 @@
+version: '2'
+services:
+
+  run:
+    image: gaiadocker/tugbot:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - voteapp
+
+  collect:
+    image: gaiadocker/tugbot-collect:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - voteapp
+    depends_on:
+      - result
+    command: tugbot-collect -g null -c http://tugbot-result-service-es:8081/results
+
+  result:
+    image: gaiadocker/tugbot-result-service-es:latest
+    ports:
+      - "8081:8081"
+    networks:
+      - voteapp
+    command: ./tugbot-result-service-es -e http://es:9200
+
+  es:
+    image: elasticsearch:2.3.4
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - voteapp
+
+  kibana:
+    image: kibana:4.5.1
+    ports:
+      - "5601:5601"
+    networks:
+      - voteapp
+    environment:
+      - ELASTICSEARCH_URL=http://es:9200
+
+networks:
+    voteapp:
