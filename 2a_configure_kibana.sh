@@ -12,7 +12,7 @@ done
 
 # Prepare default mapping for tugbot results
 curl -H "Content-Type: application/json" -XPOST -d '{
-  "template":"gaiadocker*",
+  "template":"tugbot_gaiadocker*",
     "mappings":{"_default_": {
       "dynamic_templates":
         [
@@ -29,18 +29,18 @@ if [ $? -ne 0 ]; then
 fi
 
 # Check that Kibana index is ready
-curl -XGET http://localhost:9200/_cat/indices | grep kibana
+curl -XGET http://localhost:9200/_cat/indices | grep kibana | grep "yellow\|green"
 while [ $? -ne 0 ]; do
   sleep 2
   echo Waiting for Kibana index readiness
-  curl -XGET http://localhost:9200/_cat/indices | grep "kibana"
+  curl -XGET http://localhost:9200/_cat/indices | grep "kibana" | grep "yellow\|green"
 done
 
-# Create index pattern for gaiadocker* in Kibana index
-curl -XPUT http://localhost:9200/.kibana/index-pattern/gaiadocker* -d '{"title" : "gaiadocker*",  "timeFieldName": "tugbotData.startedAt"}'
+# Create index pattern for tugbot_gaiadocker* in Kibana index
+curl -XPUT http://localhost:9200/.kibana/index-pattern/tugbot_gaiadocker* -d '{"title" : "tugbot_gaiadocker*",  "timeFieldName": "tugbotData.startedAt"}'
 
-# Mark gaiadocker* index pattern as default (NOTE Kibana version role is not clear - 4.5.1)
-curl -XPUT http://localhost:9200/.kibana/config/4.5.1 -d '{"defaultIndex" : "gaiadocker*"}'
+# Mark tugbot_gaiadocker* index pattern as default (NOTE Kibana version role is not clear - 4.5.1)
+curl -XPUT http://localhost:9200/.kibana/config/4.5.1 -d '{"defaultIndex" : "tugbot_gaiadocker*"}'
 
 # Add visualization and dashboard objects
 curl -XPUT http://localhost:9200/.kibana/visualization/Top-5-slowest-tests-percentile-95 -d '
@@ -51,7 +51,7 @@ curl -XPUT http://localhost:9200/.kibana/visualization/Top-5-slowest-tests-perce
       "description": "",
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"gaiadocker*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+        "searchSourceJSON": "{\"index\":\"tugbot_gaiadocker*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
       }
   }'
 curl -XPUT http://localhost:9200/.kibana/visualization/Passed-vs-Failed-overtime -d '
@@ -62,7 +62,7 @@ curl -XPUT http://localhost:9200/.kibana/visualization/Passed-vs-Failed-overtime
       "description": "",
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"gaiadocker*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[]}"
+        "searchSourceJSON": "{\"index\":\"tugbot_gaiadocker*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[]}"
       }
   }'
 curl -XPUT http://localhost:9200/.kibana/visualization/AverageTotalDuration -d '
@@ -73,7 +73,7 @@ curl -XPUT http://localhost:9200/.kibana/visualization/AverageTotalDuration -d '
       "description": "",
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"gaiadocker*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+        "searchSourceJSON": "{\"index\":\"tugbot_gaiadocker*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
     }
   }'
 curl -XPUT http://localhost:9200/.kibana/visualization/Test-case-failures-per-container-execution-summary -d '
@@ -84,7 +84,7 @@ curl -XPUT http://localhost:9200/.kibana/visualization/Test-case-failures-per-co
       "description": "",
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"gaiadocker*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+        "searchSourceJSON": "{\"index\":\"tugbot_gaiadocker*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
       }
   }'
 curl -XPUT http://localhost:9200/.kibana/visualization/Top-5-failing-tests -d '
@@ -95,7 +95,7 @@ curl -XPUT http://localhost:9200/.kibana/visualization/Top-5-failing-tests -d '
       "description": "",
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"gaiadocker*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+        "searchSourceJSON": "{\"index\":\"tugbot_gaiadocker*\",\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
       }
   }'
 curl -XPUT http://localhost:9200/.kibana/visualization/SummaryMetrics -d '
@@ -106,7 +106,7 @@ curl -XPUT http://localhost:9200/.kibana/visualization/SummaryMetrics -d '
       "description": "",
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"gaiadocker*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[]}"
+        "searchSourceJSON": "{\"index\":\"tugbot_gaiadocker*\",\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}},\"filter\":[]}"
       }
   }'
 curl -XPUT http://localhost:9200/.kibana/visualization/Top-3-frequent-failures -d '
@@ -117,7 +117,7 @@ curl -XPUT http://localhost:9200/.kibana/visualization/Top-3-frequent-failures -
       "description": "",
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"gaiadocker*\",\"query\":{\"query_string\":{\"query\":\"status:\\\"Failed\\\"\",\"analyze_wildcard\":true}},\"filter\":[]}"
+        "searchSourceJSON": "{\"index\":\"tugbot_gaiadocker*\",\"query\":{\"query_string\":{\"query\":\"status:\\\"Failed\\\"\",\"analyze_wildcard\":true}},\"filter\":[]}"
       }
   }'
 curl -XPUT http://localhost:9200/.kibana/visualization/Top-5-failing-test-cases-overtime -d '
@@ -128,7 +128,7 @@ curl -XPUT http://localhost:9200/.kibana/visualization/Top-5-failing-test-cases-
       "description": "",
       "version": 1,
       "kibanaSavedObjectMeta": {
-        "searchSourceJSON": "{\"index\":\"gaiadocker*\",\"query\":{\"query_string\":{\"query\":\"status:\\\"Failed\\\"\",\"analyze_wildcard\":true}},\"filter\":[]}"
+        "searchSourceJSON": "{\"index\":\"tugbot_gaiadocker*\",\"query\":{\"query_string\":{\"query\":\"status:\\\"Failed\\\"\",\"analyze_wildcard\":true}},\"filter\":[]}"
       }
   }'
 curl -XPUT http://localhost:9200/.kibana/dashboard/Tugbot-Demo -d '
@@ -145,3 +145,4 @@ curl -XPUT http://localhost:9200/.kibana/dashboard/Tugbot-Demo -d '
         "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
       }
   }'
+
