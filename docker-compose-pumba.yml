@@ -1,0 +1,13 @@
+version: '2'
+services:
+
+  pumba:
+    image: gaiaadm/pumba:master
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - voteapp
+    command: pumba --debug --interval 1m --random netem --duration 30s delay --amount 3000 re2:(.+)result
+
+networks:
+    voteapp:

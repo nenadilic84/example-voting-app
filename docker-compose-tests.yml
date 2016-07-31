@@ -1,0 +1,15 @@
+version: '2'
+services:
+
+  votests:
+    image: gaiadocker/example-voting-app-tests:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - voteapp
+    environment:
+      - dbHost=db
+      - appHost=voting-app:80
+
+networks:
+    voteapp:

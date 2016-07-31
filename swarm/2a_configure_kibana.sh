@@ -36,6 +36,15 @@ while [ $? -ne 0 ]; do
   curl -XGET http://localhost:9200/_cat/indices | grep "kibana"
 done
 
+# start Kibana
+# docker run -d --name kibana -p 5601:5601 --link es:elasticsearch kibana:4.5.1
+# create Kibana service
+docker service ls --filter "name=kibana" | grep "kibana"
+if [ $? -ne 0 ]; then
+  docker service create --name kibana --network ${DEMO_NET} -e ELASTICSEARCH_URL=http://es:9200 --publish 5601:5601 kibana:4.5.1
+fi
+
+
 # Create index pattern for gaiadocker* in Kibana index
 curl -XPUT http://localhost:9200/.kibana/index-pattern/gaiadocker* -d '{"title" : "gaiadocker*",  "timeFieldName": "tugbotData.startedAt"}'
 
@@ -145,3 +154,4 @@ curl -XPUT http://localhost:9200/.kibana/dashboard/Tugbot-Demo -d '
         "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
       }
   }'
+

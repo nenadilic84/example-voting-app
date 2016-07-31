@@ -1,9 +1,10 @@
 #!/bin/bash
 
-set -x
+# remove pumba
+docker-compose -f docker-compose-pumba.yml down -v
 
-docker service rm es
-docker service rm tugbot-run
-docker service rm tugbot-collect
-docker service rm tugbot-result-service-es
-docker service rm tugbot-result-service
+# remove tests
+docker-compose -f docker-compose-tests.yml down -v
+
+# remove tugbot
+docker-compose -f docker-compose-tugbot.yml down -v

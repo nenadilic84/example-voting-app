@@ -3,21 +3,21 @@ version: "2"
 services:
 
   voting-app:
-    image: gaiadocker/example-voting-app-vote
+    image: gaiadocker/example-voting-app-vote:latest
     ports:
       - 5000:80
     networks:
       - voteapp
 
   result-app:
-    image: gaiadocker/example-voting-app-result
+    image: gaiadocker/example-voting-app-result:latest
     ports:
       - 5001:80
     networks:
       - voteapp
 
   worker:
-    image: gaiadocker/example-voting-app-worker
+    image: gaiadocker/example-voting-app-worker:latest
     networks:
       voteapp:
         aliases:
@@ -33,6 +33,8 @@ services:
 
   db:
     image: postgres:9.4
+    ports:
+      - 5432:5432
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
