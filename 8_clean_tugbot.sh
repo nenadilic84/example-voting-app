@@ -1,11 +1,10 @@
 #!/bin/bash
 
 # remove pumba
-docker-compose -f docker-compose-pumba.yml kill
-docker-compose -f docker-compose-pumba.yml rm -f
+docker-compose -f docker-compose-pumba.yml down --remove-orphans -v
+
 # remove tests
-docker-compose -f docker-compose-tests.yml kill
-docker-compose -f docker-compose-tests.yml rm -f
+docker-compose -f docker-compose-tests.yml down --remove-orphans -v
+
 # remove tugbot
-docker-compose -f docker-compose-tugbot.yml kill
-docker-compose -f docker-compose-tugbot.yml rm -f
+docker-compose -f docker-compose-tugbot.yml down --remove-orphans -v
