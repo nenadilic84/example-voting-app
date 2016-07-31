@@ -7,6 +7,8 @@ ADD package.json /app/package.json
 RUN npm config set registry http://registry.npmjs.org
 RUN npm install && npm ls
 
+ENV XUNIT_FILE /src/test-results/xunit-all.xml
+
 LABEL tugbot.test=true
 LABEL tugbot.results.dir=/src/test-results
 LABEL tugbot.event.docker=start

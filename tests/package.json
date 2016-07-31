@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "test": "npm run test:all",
-    "test:all": "mocha specs/**/**/*.js --require specs/helpers/chai-config.js --reporter xunit > test-results/xunit-all.xml",
+    "test:all": "mocha specs/**/**/*.js --require specs/helpers/chai-config.js --reporter xunit-file",
     "test:all-stdout": "mocha specs/**/**/*.js --require specs/helpers/chai-config.js",
     "test:all-stdout-xml": "mocha specs/**/**/*.js --require specs/helpers/chai-config.js --reporter xunit",
     "test:e2e": "mocha specs/e2e/**/*.js --require specs/helpers/chai-config.js --reporter xunit > test-results/xunit-e2e.xml",
@@ -15,6 +15,7 @@
     "chai": "^3.5.0",
     "mocha": "^2.5.3",
     "pg": "^6.0.3",
-    "request": "^2.74.0"
+    "request": "^2.74.0",
+    "xunit-file": "^1.0.0"
   }
 }
