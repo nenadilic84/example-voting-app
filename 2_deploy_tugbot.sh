@@ -29,7 +29,7 @@ fi
 # create es service
 docker service ls --filter "name=es" | grep "es"
 if [ $? -ne 0 ]; then
-  docker service create --name es --network voteapp --publish 9200:9200 --publish 9300:9300 elasticsearch:latest
+  docker service create --name es --network voteapp --publish 9200:9200 --publish 9300:9300 elasticsearch:2.3.4
 fi
 
 
