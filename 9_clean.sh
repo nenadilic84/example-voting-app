@@ -1,7 +1,6 @@
 #!/bin/bash
 
-docker-compose -f docker-compose-voteapp.yml kill
-docker-compose -f docker-compose-voteapp.yml rm -f -v
+docker-compose -f docker-compose-voteapp.yml down --remove-orphans -v
 
 # cleanup volumes
 docker volume rm $(docker volume ls -q)
