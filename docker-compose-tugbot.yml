@@ -16,7 +16,7 @@ services:
       - voteapp
     depends_on:
       - result
-    command: tugbot-collect -g null -c http://tugbot-result-service-es:8081/results
+    command: tugbot-collect -g null -c http://result:8081/results
 
   result:
     image: gaiadocker/tugbot-result-service-es:latest
