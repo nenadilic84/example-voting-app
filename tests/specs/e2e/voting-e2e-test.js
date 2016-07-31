@@ -61,37 +61,42 @@ if(process.env.dbHost) {
 
 
   it('check database after voting', function (done) {
+    this.timeout(5000);
     var voteA = 0;
     var voteB = 0;
-    pg.connect('postgres://postgres@'+dbHost+'/postgres').then(function (client) {
-      client.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote', [], function (errrr, result) {
-        if (errrr) {
-          console.error("Error performing query: " + errrr);
-        } else {
-          result.rows.forEach(function (row) {
-            if (row.vote === 'a') {
-              voteA = row.count;
-            } else if (row.vote === 'b') {
-              voteB = row.count;
-            }
-          }, result);
+    console.log(new Date());
+    setTimeout(function () {
+      console.log(new Date());
+      pg.connect('postgres://postgres@'+dbHost+'/postgres').then(function (client) {
+        client.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote', [], function (errrr, result) {
+          if (errrr) {
+            console.error("Error performing query: " + errrr);
+          } else {
+            result.rows.forEach(function (row) {
+              if (row.vote === 'a') {
+                voteA = row.count;
+              } else if (row.vote === 'b') {
+                voteB = row.count;
+              }
+            }, result);
 
-          console.log('voteA=' + voteA);
-          console.log('votesA=' + votesA);
-          console.log('voteB=' + voteB);
-          console.log('votesB=' + votesB);
-          if(voteA){
-            expect(voteA-votesA).equal(1);
+            console.log('voteA=' + voteA);
+            console.log('votesA=' + votesA);
+            console.log('voteB=' + voteB);
+            console.log('votesB=' + votesB);
+            if(voteA){
+              expect(voteA-votesA).equal(1);
+            }
+            if(voteB){
+              expect(voteB-votesB).equal(0);
+            }
+            done();
           }
-          if(voteB){
-            expect(voteB-votesB).equal(0);
-          }
-          done();
-        }
+        });
+      }, function (err) {
+        console.log('error');
       });
-    }, function (err) {
-      console.log('error');
-    });
+    }, 3000);
   });
 
 });
