@@ -31,8 +31,8 @@ while [ $? -ne 0 ]; do
 done
 
 # Configure Kibana objects mapping
-curl -XPUT http://localhost:9200/.kibana/_mapping/config -d '
-{"properties":{"buildNum":{"type":"long","index":"not_analyzed"},"defaultIndex":{"type":"string"}}}'
+#curl -XPUT http://localhost:9200/.kibana/_mapping/config -d '
+#{"properties":{"buildNum":{"type":"long","index":"not_analyzed"},"defaultIndex":{"type":"string"}}}'
 
 curl -XPUT http://localhost:9200/.kibana/_mapping/search -d '
 {"properties":{"columns":{"type":"string"},"description":{"type":"string"},"hits":{"type":"integer"},"kibanaSavedObjectMeta":{"properties":{"searchSourceJSON":{"type":"string"}}},"sort":{"type":"string"},"title":{"type":"string"},"version":{"type":"integer"}}}'
