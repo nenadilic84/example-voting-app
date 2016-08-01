@@ -8,28 +8,35 @@ Pre-requests
 2. Bash
 
 
-1. Deploy Voting App (as services)
------
-
-Run in root directory to create new swarm cluster and deploy all application services on it.
-
-    $ ./1_deploy.sh
-
-The new Swarm cluster (one master node) will be created and the app will be deployed there as services. Each service can be scaled and updated later with corresponding `docker service scale/update` command.
-
-The voting app will run at [http://localhost:5000](http://localhost:5000)
-The results app will run at [http://localhost:5001](http://localhost:5001)
-
-**Note:** run `docker service ls` command to see that all services are up and running
-
-2. Deploy Tugbot Testing Framework (as services)
+1. Deploy Voting App 
 ----
 
-Run in root directory to deploy all Tugbot services on it.
+Run in root directory: 
+
+    $ ./1_deploy.sh
+	
+Docker-compose starts all 5 containers, the example-voting-application consists of.
+
+The voting app will run at [http://localhost:5000](http://localhost:5000)  
+The results app will run at [http://localhost:5001](http://localhost:5001)
+
+2. Deploy Tugbot Testing Framework
+----
+
+Run in root directory:
 
     $ ./2_deploy_tugbot.sh
 
-**Note:** run `docker service ls` command to see that all services are up and running
+Docker-compose starts tugbot, tugbot-collect and tugbot-result-service.  
+It also starts Elasticsearch and Kibana containers; while it is not mandatory to run both of them on the same host, we added the containers to this script to make the demo preparation easier.  
+Elasticsearch serves as a database for the results collected by tugbot and Kibana is the UI layer.
+
+Run in root directory:
+
+    $ ./2a_configure_kibana.sh
+
+This script configures some objects for Kibana to make seeing the results easier.  
+*** NOTE: *** The UI is still not usable until tugbot sends at least 1 result to Elasticsearch.
 
 3. Open Voting App and Tugbot Dashboard
 ----
@@ -51,14 +58,18 @@ Run in root directory to deploy all Tugbot services on it.
 5. Modify Application
 ----
 
-**TODO:** introduce defect; build new image (or use prepared images); update service
-
-**Expected:** Some test must fail now.
+Run in root directory:
+ 
+    $ ./1_deploy.sh bad
+	
+**Expected:** Two tests should fail now. "Bad" image contains a bug that prevents the verification in application UI that user has voted as expected. Visually, there is no v sign near your selection and so 2 tests related to the verification are failed. Others still OK, since other parts of UI as well as the backend data flow are not affected by the bug.
 
 6. Fix Application
 ----
 
-**TODO:** fix defect and update service.
+Run in root directory:
+ 
+    $ ./1_deploy.sh
 
 **Expected:** All test must pass now.
 

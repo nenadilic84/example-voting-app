@@ -3,20 +3,27 @@ var pg = require('pg');
 
 describe('Integration tests - voting', function () {
 
-var appHost='localhost:5000';
-var dbHost='localhost';
-if(process.env.appHost) {
-  appHost=process.env.appHost;
-}
-if(process.env.dbHost) {
-  dbHost=process.env.dbHost
-}
+  var appHost = 'localhost:5000';
+  var dbHost = 'localhost';
+  if (process.env.appHost) {
+    appHost = process.env.appHost;
+  }
+  if (process.env.dbHost) {
+    dbHost = process.env.dbHost
+  }
 
 
-  var votesA=0, votesB=0;
+  var votesA = 0, votesB = 0;
+
+  beforeEach(function (done) {
+    setTimeout(function () {
+      done();
+    }, 1000);
+  });
 
   it('check database before voting', function (done) {
-    pg.connect('postgres://postgres@'+dbHost+'/postgres').then(function (client) {
+    console.log('dbHost: ' + dbHost);
+    pg.connect('postgres://postgres@' + dbHost + '/postgres').then(function (client) {
       client.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote', [], function (errrr, result) {
         if (errrr) {
           console.error("Error performing query: " + errrr);
@@ -34,13 +41,13 @@ if(process.env.dbHost) {
         }
       });
     }, function (err) {
-      console.log('error');
+      console.log('error: ' + err);
     });
   });
 
   it('vote cats and verify', function (done) {
     var options = {
-      url: 'http://'+appHost,
+      url: 'http://' + appHost,
       method: 'POST',
       formData: {
         vote: 'a'
@@ -54,7 +61,6 @@ if(process.env.dbHost) {
       var votedB = body.substring(ind, ind + 15).indexOf('= "b"');
       expect(votedA).to.be.above(1);
       expect(votedB).equal(-1);
-//      console.log(body);
       done();
     })
   });
@@ -63,7 +69,7 @@ if(process.env.dbHost) {
   it('check database after voting', function (done) {
     var voteA = 0;
     var voteB = 0;
-    pg.connect('postgres://postgres@'+dbHost+'/postgres').then(function (client) {
+    pg.connect('postgres://postgres@' + dbHost + '/postgres').then(function (client) {
       client.query('SELECT vote, COUNT(id) AS count FROM votes GROUP BY vote', [], function (errrr, result) {
         if (errrr) {
           console.error("Error performing query: " + errrr);
@@ -76,13 +82,15 @@ if(process.env.dbHost) {
             }
           }, result);
 
-//          console.log('voteA=' + voteA);
-//          console.log('voteB=' + voteB);
-          if(voteA){
-            expect(voteA-votesA).equal(1);
+          console.log('voteA=' + voteA);
+          console.log('votesA=' + votesA);
+          console.log('voteB=' + voteB);
+          console.log('votesB=' + votesB);
+          if (voteA) {
+            expect(voteA - votesA).equal(1);
           }
-          if(voteB){
-            expect(voteB-votesB).equal(0);
+          if (voteB) {
+            expect(voteB - votesB).equal(0);
           }
           done();
         }
