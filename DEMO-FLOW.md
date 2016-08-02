@@ -90,9 +90,11 @@ To stop network emulation, exit Pumba with `Ctrl-C`; wait till Pumba exits grace
 ----
 
 To clean tugbot only:
+
     $ ./8_clean_tugbot.sh
 
 To clean tugbot and the voting app:
+
     $ ./9_clean.sh
 
 
