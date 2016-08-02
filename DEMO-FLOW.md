@@ -7,12 +7,12 @@ Pre-requests
 1. Docker 1.12 for Mac (or Windows)
 2. Docker Compose
 3. Bash
-
+4. Browser on `localhost` with network acessability (open ports) to docker host 
 
 1. Deploy Voting App 
 ----
 
-Run in root directory: 
+Run in cloned directory: 
 
     $ ./1_deploy.sh
 	
@@ -24,55 +24,55 @@ The results app will run at [http://localhost:5001](http://localhost:5001)
 2. Deploy Tugbot Testing Framework
 ----
 
-Run in root directory:
+Run in cloned directory:
 
     $ ./2_deploy_tugbot.sh
 
-Docker-compose starts tugbot, tugbot-collect and tugbot-result-service.  
+Docker-compose starts tugbot, tugbot-collect and tugbot-result-service-es.  
 It also starts Elasticsearch and Kibana containers; while it is not mandatory to run both of them on the same host, we added the containers to this script to make the demo preparation easier.  
 Elasticsearch serves as a database for the results collected by tugbot and Kibana is the UI layer.
 
-Run in root directory:
-
-    $ ./2a_configure_kibana.sh
-
-This script configures some objects for Kibana to make seeing the results easier.  
-*** NOTE: *** The UI is still not usable until tugbot sends at least 1 result to Elasticsearch.
-
-3. Open Voting App and Tugbot Dashboard
+3. Import Dashboard Setting Into Kibana 
 ----
 
-    $ ./3_open_app.sh
+Run in cloned directory:
 
-[Tugbot Dashboard (Kibana)](http://localhost:5061)
+    $ ./3_configure_kibana.sh
 
-**Expected:** see empty dashboard.
+This script configures some objects for Kibana to make seeing the results easier.  
+Kibana dashboard is now acessible at [http://localhost:5601](http://localhost:5601)
+*** NOTE: *** The UI is still not usable until tugbot sends at least 1 result to Elasticsearch
 
 4. Run Integration and Functional Tests
 ----
     
+Run in cloned directory:
+
     $ ./4_run_tests.sh
     $ TODO: run selected docker-bench-tests tests
 
 **Expected:** ALL test must pass now.
+You should see now the test results in Kibana Dashboard at [http://localhost:5601](http://localhost:5601)
 
 5. Modify Application
 ----
 
-Run in root directory:
+Run in cloned directory:
  
     $ ./1_deploy.sh bad
 	
 **Expected:** Two tests should fail now. "Bad" image contains a bug that prevents the verification in application UI that user has voted as expected. Visually, there is no v sign near your selection and so 2 tests related to the verification are failed. Others still OK, since other parts of UI as well as the backend data flow are not affected by the bug.
+You should see now the test results in Kibana Dashboard at [http://localhost:5601](http://localhost:5601)
 
 6. Fix Application
 ----
 
-Run in root directory:
+Run in cloned directory:
  
     $ ./1_deploy.sh
 
-**Expected:** All test must pass now.
+**Expected:** We returned the "Good" image, hence - All tests should pass now.
+You should see now the test results in Kibana Dashboard at [http://localhost:5601](http://localhost:5601)
 
 7. Simulate network problems
 ----
@@ -87,5 +87,12 @@ To stop network emulation, exit Pumba with `Ctrl-C`; wait till Pumba exits grace
 
 8. Cleanup
 ----
+
+To clean tugbot only:
     $ ./8_clean_tugbot.sh
+
+To clean tugbot and the voting app:
     $ ./9_clean.sh
+
+** NOTE: *** The scripts leave a volume on the docker host, used by elasticsearch, so if you re-deploy tugbot this volume will reattached to elasticsearch and you will see your old data in Kibana.
+If you want to remove the volume you need to add the `all` param to the scripts, for instance: `./8_clean_tugbot.sh all` and `./9_clean.sh all`
