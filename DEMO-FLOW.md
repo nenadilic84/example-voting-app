@@ -44,7 +44,7 @@ This script configures some objects for Kibana to make seeing the results easier
 
     $ ./3_open_app.sh
 
-[Tugbot Dashboard](http://localhost:8080) **TODO**: now it is configured to run on `8080`. make sure to run it on port `4000`.
+[Tugbot Dashboard (Kibana)](http://localhost:5061)
 
 **Expected:** see empty dashboard.
 
