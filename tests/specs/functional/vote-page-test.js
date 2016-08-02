@@ -1,13 +1,13 @@
 var request = require('request');
 var pg = require('pg');
 
-var appHost='localhost:5000';
-var dbHost='localhost';
-if(process.env.appHost) {
-  appHost=process.env.appHost;
+var appHost = 'localhost:5000';
+var dbHost = 'localhost';
+if (process.env.appHost) {
+  appHost = process.env.appHost;
 }
-if(process.env.dbHost) {
-  dbHost=process.env.dbHost
+if (process.env.dbHost) {
+  dbHost = process.env.dbHost
 }
 
 describe('Functional tests - voting', function () {
@@ -15,9 +15,16 @@ describe('Functional tests - voting', function () {
 //  console.log('AppHost: '+appHost);
 //  console.log('DbHost: '+dbHost);
 
+  var t = new Date().getTime();
+  var willVote = 'a';
+  if (t % 2 == 0) {
+    willVote = 'b';
+  }
+  console.log('Will vote: ' + willVote);
+
   it('open ui and check title', function (done) {
     var options = {
-      url: 'http://'+appHost,
+      url: 'http://' + appHost,
       method: 'GET'
     };
     request(options, function (error, resp, body) {
@@ -31,11 +38,12 @@ describe('Functional tests - voting', function () {
   });
 
   it('vote cats', function (done) {
+
     var options = {
-      url: 'http://'+appHost,
+      url: 'http://' + appHost,
       method: 'POST',
       formData: {
-        vote: 'a'
+        vote: willVote
       }
     };
     request(options, function (error, resp, body) {
@@ -44,8 +52,13 @@ describe('Functional tests - voting', function () {
       expect(ind).to.be.above(-1);
       var votedA = body.substring(ind, ind + 15).indexOf('= "a"');
       var votedB = body.substring(ind, ind + 15).indexOf('= "b"');
-      expect(votedA).to.be.above(1);
-      expect(votedB).equal(-1);
+      if(willVote === 'a'){
+        expect(votedA).to.be.above(1);
+        expect(votedB).equal(-1);
+      } else {
+        expect(votedA).equal(-1);
+        expect(votedB).to.be.above(1);
+      }
 //      console.log(body);
       done();
     })
