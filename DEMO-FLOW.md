@@ -41,7 +41,8 @@ Run in cloned directory:
 
 This script configures some objects for Kibana to make seeing the results easier.  
 Kibana dashboard is now acessible at [http://localhost:5601](http://localhost:5601)
-*** NOTE: *** The UI is still not usable until tugbot sends at least 1 result to Elasticsearch
+
+**NOTE:** The UI is still not usable until tugbot sends at least 1 result to Elasticsearch
 
 4. Run Integration and Functional Tests
 ----
@@ -94,5 +95,6 @@ To clean tugbot only:
 To clean tugbot and the voting app:
     $ ./9_clean.sh
 
-** NOTE: *** The scripts leave a volume on the docker host, used by elasticsearch, so if you re-deploy tugbot this volume will reattached to elasticsearch and you will see your old data in Kibana.
+
+**NOTE:** The scripts leave a volume on the docker host, used by elasticsearch, so if you re-deploy tugbot this volume will reattached to elasticsearch and you will see your old data in Kibana.
 If you want to remove the volume you need to add the `all` param to the scripts, for instance: `./8_clean_tugbot.sh all` and `./9_clean.sh all`
