@@ -1,5 +1,8 @@
+
 Demo Flow (single machine)
 =========
+
+[![demo video](https://img.youtube.com/vi/s0AJnEUrlt4/0.jpg)](https://www.youtube.com/watch?v=s0AJnEUrlt4)
 
 Pre-requests
 ------------
