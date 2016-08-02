@@ -5,8 +5,7 @@ Pre-requests
 ------------
 
 1. Docker 1.12 for Mac (or Windows)
-2. Docker Compose 
-3. Bash
+2. Docker ComposeBash
 
 
 1. Deploy Voting App 
