@@ -31,6 +31,8 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
+    volumes:
+      - es:/usr/share/elasticsearch/data
     networks:
       - voteapp
 
@@ -43,5 +45,8 @@ services:
     environment:
       - ELASTICSEARCH_URL=http://es:9200
 
+volumes:
+  es:
+  
 networks:
-    voteapp:
+  voteapp:

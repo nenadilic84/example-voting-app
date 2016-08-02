@@ -7,4 +7,7 @@ docker-compose -f docker-compose-pumba.yml down -v
 docker-compose -f docker-compose-tests.yml down -v
 
 # remove tugbot
-docker-compose -f docker-compose-tugbot.yml down -v
+if ([ $1 ] && [ $1 = "all" ]); then 
+  rv="-v"
+fi;
+docker-compose -f docker-compose-tugbot.yml down $rv
