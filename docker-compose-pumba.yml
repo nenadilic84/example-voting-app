@@ -7,7 +7,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - voteapp
-    command: pumba --debug --interval 40s --random netem --duration 20s delay --amount 3000 re2:(.+)result
+    command: pumba --debug --interval 40s --random netem --duration 35s delay --amount 3000 re2:(.+)result
 
 networks:
     voteapp:
