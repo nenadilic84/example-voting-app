@@ -1,3 +1,24 @@
 #!/bin/bash
 
-for i in {1..10}; do ./1_deploy.sh bad; sleep 15; ./1_deploy.sh; done
+if [ -z "$1" ]; then
+  END=10
+else
+  END=$1
+fi 
+
+if [ -z "$2" ]; then
+  SLEEP=15
+else
+  SLEEP=$2
+fi
+
+for i in $(seq 1 ${END}); do 
+  echo "***** ITERATION ${i}/${END} ******"
+  echo " > Deploy BUG "
+  (./1_deploy.sh bad)
+  sleep "${SLEEP}"
+  echo " > Fix BUG "
+  (./1_deploy.sh)
+  sleep "${SLEEP}"
+  echo " "
+done

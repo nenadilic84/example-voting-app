@@ -10,6 +10,10 @@ services:
 
   collect:
     image: gaiadocker/tugbot-collect:latest
+    environment:
+      http_proxy: "$tb_proxy" 
+      https_proxy: "$tb_proxy"
+      no_proxy: "$tb_no_proxy"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
@@ -20,6 +24,10 @@ services:
 
   result:
     image: gaiadocker/tugbot-result-service-es:latest
+    environment:
+      http_proxy: "$tb_proxy"
+      https_proxy: "$tb_proxy"
+      no_proxy: "$tb_no_proxy"
     ports:
       - "8081:8081"
     networks:
@@ -38,12 +46,15 @@ services:
 
   kibana:
     image: kibana:4.5.1
+    environment:
+      http_proxy: "$tb_proxy"
+      https_proxy: "$tb_proxy"
+      no_proxy: "$tb_no_proxy"
+      ELASTICSEARCH_URL: "http://es:9200"
     ports:
       - "5601:5601"
     networks:
       - voteapp
-    environment:
-      - ELASTICSEARCH_URL=http://es:9200
 
 volumes:
   es:
