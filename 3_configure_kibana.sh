@@ -1,7 +1,7 @@
 #!/bin/bash
 
 [ -z "$DEMO_NET" ] && DEMO_NET="voteapp"
-[ -z "$DOCKER_IP" ] && DOCKER_HOST="localhost"
+[ -z "$DOCKER_IP" ] && DOCKER_IP="localhost"
 
 # Wait until ES is ready
 curl -XGET http://${DOCKER_IP}:9200/_cluster/health?pretty=true | grep "green\|yellow"
