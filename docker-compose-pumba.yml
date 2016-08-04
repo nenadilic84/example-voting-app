@@ -3,6 +3,10 @@ services:
 
   pumba:
     image: gaiaadm/pumba:master
+    environment:
+      http_proxy: "$tb_proxy"
+      https_proxy: "$tb_proxy"
+      no_proxy: "tb_no_proxy"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:

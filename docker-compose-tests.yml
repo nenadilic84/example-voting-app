@@ -3,13 +3,16 @@ services:
 
   votests:
     image: gaiadocker/example-voting-app-tests:latest
+    environment:
+      http_proxy: "$tb_proxy"
+      https_proxy: "$tb_proxy"
+      no_proxy: "$tb_no_proxy"
+      dbHost: "db"
+      appHost: "voting-app:80"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - voteapp
-    environment:
-      - dbHost=db
-      - appHost=voting-app:80
 
 networks:
     voteapp:

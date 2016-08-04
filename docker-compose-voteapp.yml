@@ -4,6 +4,10 @@ services:
 
   voting-app:
     image: gaiadocker/example-voting-app-vote:${VOTE_TAG}
+    environment:
+      http_proxy: "$tb_proxy"
+      https_proxy: "$tb_proxy"
+      no_proxy: "$tb_no_proxy"
     ports:
       - 5000:80
     networks:
@@ -11,6 +15,10 @@ services:
 
   result-app:
     image: gaiadocker/example-voting-app-result:latest
+    environment:
+      http_proxy: "$tb_proxy"
+      https_proxy: "$tb_proxy"
+      no_proxy: "$tb_no_proxy"
     ports:
       - 5001:80
     networks:
@@ -18,6 +26,10 @@ services:
 
   worker:
     image: gaiadocker/example-voting-app-worker:latest
+    environment:
+      http_proxy: "$tb_proxy"
+      https_proxy: "$tb_proxy"
+      no_proxy: "$tb_no_proxy"
     networks:
       voteapp:
         aliases:

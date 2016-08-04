@@ -8,4 +8,8 @@ else
   export VOTE_TAG=$1
 fi;
 
+docker-compose -f docker-compose-voteinfra.yml up -d
+
+source ./set_network.sh
+
 docker-compose -f docker-compose-voteapp.yml up -d
