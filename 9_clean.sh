@@ -1,6 +1,7 @@
 #!/bin/bash
 
 docker-compose -f docker-compose-voteapp.yml down --remove-orphans 
+docker-compose -f docker-compose-voteinfra.yml down --remove-orphans 
 
 # cleanup volumes
 if ([ $1 ] && [ $1 = "all" ]); then
