@@ -2,7 +2,7 @@ version: '2'
 services:
 
   pumba:
-    image: gaiaadm/pumba:master
+    image: gaiaadm/pumba:111-master
     environment:
       http_proxy: "$tb_proxy"
       https_proxy: "$tb_proxy"
@@ -11,7 +11,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - voteapp
-    command: pumba --debug --interval 40s --random netem --duration 35s delay --amount 3000 re2:(.+)result
+    command: pumba --debug netem --duration 5m delay --time 3000 "re2:(.+)result-app"
 
 networks:
     voteapp:

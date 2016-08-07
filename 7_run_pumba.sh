@@ -2,6 +2,7 @@
 
 echo "Running Pumba Network Emulation ..."
 
+# shellcheck disable=SC1091
 source ./set_network.sh
 
-docker-compose -f docker-compose-pumba.yml up
+exec docker-compose -f docker-compose-pumba.yml up 
