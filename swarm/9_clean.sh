@@ -7,10 +7,10 @@ docker service rm $(docker service ls -q)
 docker network rm voteapp
 
 #remove volume; wait some time before remove
-docker volume rm db-data
+docker volume rm db-data 2>/dev/null
 while [ $? -ne 0 ]; do
   sleep 2
-  docker volume rm db-data
+  docker volume rm db-data 2>/dev/null
 done
 
 # remove swarm cluster

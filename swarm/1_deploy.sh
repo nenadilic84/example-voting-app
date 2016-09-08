@@ -3,6 +3,7 @@
 echo "Deploy example voting application."
 echo "Overwrite DEMO_TAG, DEMO_REP, DEMO_NET and DEMO_DB_VOL to customize demo environment."
 
+[ -z "$VOTE_TAG_GOOD" ] && VOTE_TAG_GOOD="good"
 [ -z "$DEMO_TAG" ] && DEMO_TAG="latest"
 [ -z "$DEMO_REP" ] && DEMO_REP="gaiadocker"
 [ -z "$DEMO_NET" ] && DEMO_NET="voteapp"
@@ -41,7 +42,7 @@ fi
 # create voting-app
 docker service ls --filter "name=voting-app" | grep "voting-app"
 if [ $? -ne 0 ]; then
-  docker service create --name voting-app --network ${DEMO_NET} --publish 5000:80 ${DEMO_REP}/example-voting-app-vote:${DEMO_TAG}
+  docker service create --name voting-app --network ${DEMO_NET} --publish 5000:80 ${DEMO_REP}/example-voting-app-vote:${VOTE_TAG_GOOD}
 fi
 
 # create result-app
