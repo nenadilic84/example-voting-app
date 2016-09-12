@@ -5,7 +5,7 @@
 [ -z "$VOTE_TAG_BAD" ] && VOTE_TAG_BAD="bad"
 
 if [ -z "$1" ]; then
-  END=10
+  END=5
 else
   END=$1
 fi
