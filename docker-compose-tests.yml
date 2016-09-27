@@ -3,6 +3,9 @@ services:
 
   votests:
     image: gaiadocker/example-voting-app-tests:latest
+    labels:
+      tugbot.event.docker.filter.type: "container"
+      tugbot.event.docker.filter.action: "start"
     environment:
       http_proxy: "$tb_proxy"
       https_proxy: "$tb_proxy"
