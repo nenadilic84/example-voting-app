@@ -12,6 +12,7 @@ SWARM_TOKEN=$(docker swarm join-token -q worker)
 
 # get Swarm master IP (Docker for Mac xhyve VM IP)
 SWARM_MASTER=$(docker info | grep -w 'Node Address' | awk '{print $3}')
+sleep 5
 
 # run NUM_WORKERS workers with SWARM_TOKEN
 for i in $(seq "${NUM_WORKERS}"); do
