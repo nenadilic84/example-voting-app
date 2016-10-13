@@ -35,14 +35,12 @@ for i in $(seq "${NUM_WORKERS}"); do
 done
 
 # show swarm cluster
-echo "Local Swarm Cluster"
-echo "==================="
+printf "\nLocal Swarm Cluster\n===================\n"
 
 docker node ls
 
 # echo swarm visualizer
-echo "Local Swarm Visualizer"
-echo "==================="
+printf "\nLocal Swarm Visualizer\n===================\n"
 docker run -it -d --name swarm_visuzalizer \
   -p 8000:8000 -e HOST=localhost -e PORT=8000 \
   -v /var/run/docker.sock:/var/run/docker.sock \
