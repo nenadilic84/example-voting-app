@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # vars
-NUM_WORKERS=3
 [ -z "$NUM_WORKERS" ] && NUM_WORKERS=3
 
 # remove nodes

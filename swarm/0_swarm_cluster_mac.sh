@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # vars
-NUM_WORKERS=3
 [ -z "$NUM_WORKERS" ] && NUM_WORKERS=3
 
 # init swarm (need for service command); if not created
@@ -44,4 +43,4 @@ printf "\nLocal Swarm Visualizer\n===================\n"
 docker run -it -d --name swarm_visuzalizer \
   -p 8000:8000 -e HOST=localhost -e PORT=8000 \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  manomarks/visualizer  > /dev/null 2>&1
+  manomarks/visualizer 2>/dev/null
