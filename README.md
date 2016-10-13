@@ -27,3 +27,7 @@ Architecture
 Tugbot Demo
 ----
 [Demo Flow](./DEMO-FLOW.md)
+
+Tugbot Swarm Demo
+----
+[Swarm Demo Flow](./DEMO-FLOW-SWARM.md)

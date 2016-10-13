@@ -16,7 +16,7 @@ fi
 docker service ls --filter "name=tugbot-leader" | grep "tugbot-leader"
 if [ $? -ne 0 ]; then
   docker service create --constraint "node.role == manager" --name tugbot-leader \
-    --env "TUGBOT_LEADER_INTERVAL=10s"\
+    --env "TUGBOT_LEADER_INTERVAL=30s"\
     --network voteapp \
     --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
     gaiadocker/tugbot-leader:latest

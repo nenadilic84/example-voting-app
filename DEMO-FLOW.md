@@ -10,18 +10,18 @@ Pre-requests
 1. Docker 1.12 for Mac (or Windows)
 2. Docker Compose
 3. Bash
-4. Browser on `localhost` with network acessability (open ports) to docker host 
+4. Browser on `localhost` with network accessibility (open ports) to docker host 
 
-1. Deploy Voting App 
+1. Deploy Voting App
 ----
 
-Run in cloned directory: 
+Run in cloned directory:
 
     $ ./1_deploy.sh
-	
+
 Docker-compose starts all 5 containers, the example-voting-application consists of.
 
-The voting app will run at [http://localhost:5000](http://localhost:5000)  
+The voting app will run at [http://localhost:5000](http://localhost:5000)
 The results app will run at [http://localhost:5001](http://localhost:5001)
 
 2. Deploy Tugbot Testing Framework
@@ -31,25 +31,25 @@ Run in cloned directory:
 
     $ ./2_deploy_tugbot.sh
 
-Docker-compose starts tugbot, tugbot-collect and tugbot-result-service-es.  
-It also starts Elasticsearch and Kibana containers; while it is not mandatory to run both of them on the same host, we added the containers to this script to make the demo preparation easier.  
+Docker-compose starts tugbot, tugbot-collect and tugbot-result-service-es.
+It also starts Elasticsearch and Kibana containers; while it is not mandatory to run both of them on the same host, we added the containers to this script to make the demo preparation easier.
 Elasticsearch serves as a database for the results collected by tugbot and Kibana is the UI layer.
 
-3. Import Dashboard Setting Into Kibana 
+3. Import Dashboard Setting Into Kibana
 ----
 
 Run in cloned directory:
 
     $ ./3_configure_kibana.sh
 
-This script configures some objects for Kibana to make seeing the results easier.  
+This script configures some objects for Kibana to make seeing the results easier.
 Kibana dashboard is now acessible at [http://localhost:5601](http://localhost:5601)
 
 **NOTE:** The UI is still not usable until tugbot sends at least 1 result to Elasticsearch
 
 4. Run Integration and Functional Tests
 ----
-    
+
 Run in cloned directory:
 
     $ ./4_run_tests.sh
@@ -62,9 +62,9 @@ You should see now the test results in Kibana Dashboard at [http://localhost:560
 ----
 
 Run in cloned directory:
- 
+
     $ ./1_deploy.sh bad
-	
+
 **Expected:** Two tests should fail now. "Bad" image contains a bug that prevents the verification in application UI that user has voted as expected. Visually, there is no v sign near your selection and so 2 tests related to the verification are failed. Others still OK, since other parts of UI as well as the backend data flow are not affected by the bug.
 You should see now the test results in Kibana Dashboard at [http://localhost:5601](http://localhost:5601)
 
@@ -72,7 +72,7 @@ You should see now the test results in Kibana Dashboard at [http://localhost:560
 ----
 
 Run in cloned directory:
- 
+
     $ ./1_deploy.sh
 
 **Expected:** We returned the "Good" image, hence - All tests should pass now.
