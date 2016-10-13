@@ -9,11 +9,6 @@ echo "Overwrite DEMO_TAG, DEMO_REP, DEMO_NET and DEMO_DB_VOL to customize demo e
 [ -z "$DEMO_NET" ] && DEMO_NET="voteapp"
 [ -z "$DEMO_DB_VOL" ] && DEMO_DB_VOL="db-data"
 
-# init swarm (need for service command); if not created
-docker node ls 2> /dev/null | grep "Leader"
-if [ $? -ne 0 ]; then
-  docker swarm init
-fi
 
 # create network, if not exists
 docker network ls --filter "name=${DEMO_NET}" | grep -w "${DEMO_NET}"

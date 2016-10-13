@@ -2,22 +2,34 @@
 
 echo "Deploy Tugbot services ..."
 
-# create tugbot service
+# create tugbot service (global)
 docker service ls --filter "name=tugbot-run" | grep "tugbot-run"
 if [ $? -ne 0 ]; then
-  docker service create --name tugbot-run --network voteapp --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock gaiadocker/tugbot:latest
+  docker service create --name tugbot-run \
+    --network voteapp \
+    --mode global \
+    --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
+    gaiadocker/tugbot:latest
 fi
 
 # create tugbot leader service (on each Swarm master)
 docker service ls --filter "name=tugbot-leader" | grep "tugbot-leader"
 if [ $? -ne 0 ]; then
-  docker service create --constraint "node.role == manager" --name tugbot-leader --network voteapp --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock gaiadocker/tugbot-leader:latest
+  docker service create --constraint "node.role == manager" --name tugbot-leader \
+    --env "TUGBOT_LEADER_INTERVAL=10s"\
+    --network voteapp \
+    --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
+    gaiadocker/tugbot-leader:latest
 fi
 
-# create tugbot collect
+# create tugbot collect (global)
 docker service ls --filter "name=tugbot-collect" | grep "tugbot-collect"
 if [ $? -ne 0 ]; then
-  docker service create --name tugbot-collect --network voteapp --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock gaiadocker/tugbot-collect:latest tugbot-collect -g null -c http://tugbot-result-service-es:8081/results
+  docker service create --name tugbot-collect \
+    --network voteapp \
+    --mode global \
+    --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
+    gaiadocker/tugbot-collect:latest tugbot-collect -g null -c http://tugbot-result-service-es:8081/results
 fi
 
 # create tugbot result-service-es

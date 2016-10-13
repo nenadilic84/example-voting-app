@@ -12,6 +12,3 @@ while [ $? -ne 0 ]; do
   sleep 2
   docker volume rm db-data 2>/dev/null
 done
-
-# remove swarm cluster
-docker swarm leave --force

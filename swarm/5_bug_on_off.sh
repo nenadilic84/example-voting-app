@@ -11,7 +11,7 @@ else
 fi
 
 if [ -z "$2" ]; then
-  SLEEP=15
+  SLEEP=30
 else
   SLEEP=$2
 fi
