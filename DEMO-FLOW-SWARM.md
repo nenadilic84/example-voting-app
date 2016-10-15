@@ -28,7 +28,7 @@ To see your Swarm cluster, open [Swarm Visualizer](http://localhost:8000).
 - ... where `x` represent worker index: 1,2,3... (check Swarm Visuzalizer for right index)
 
 1. Deploy Voting application
-
+----
 Run in cloned directory:
 
     $ swarm/1_deploy.sh
