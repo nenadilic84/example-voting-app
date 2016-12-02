@@ -14,7 +14,7 @@ SWARM_TOKEN=$(docker swarm join-token -q worker)
 
 # get Swarm master IP (Docker for Mac xhyve VM IP)
 SWARM_MASTER=$(docker info | grep -w 'Node Address' | awk '{print $3}')
-sleep 5
+sleep 10
 
 # run NUM_WORKERS workers with SWARM_TOKEN
 for i in $(seq "${NUM_WORKERS}"); do
@@ -28,7 +28,7 @@ for i in $(seq "${NUM_WORKERS}"); do
     -p ${i}5000:5000 \
     -p ${i}5001:5001 \
     -p ${i}5601:5601 \
-    docker:1.12.1-dind
+    docker:1.13.0-rc2-dind
   # add worker container to the cluster
   docker --host=localhost:${i}2375 swarm join --token ${SWARM_TOKEN} ${SWARM_MASTER}:2377
 done
@@ -40,7 +40,7 @@ docker node ls
 
 # echo swarm visualizer
 printf "\nLocal Swarm Visualizer\n===================\n"
-docker run -it -d --name swarm_visuzalizer \
-  -p 8000:8000 -e HOST=localhost -e PORT=8000 \
+docker run -it -d --name swarm_visualizer \
+  -p 8080:8080 -e HOST=localhost \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  manomarks/visualizer 2>/dev/null
+  manomarks/visualizer:beta 2>/dev/null

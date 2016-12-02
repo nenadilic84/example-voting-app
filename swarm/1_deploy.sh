@@ -13,7 +13,7 @@ echo "Overwrite DEMO_TAG, DEMO_REP, DEMO_NET and DEMO_DB_VOL to customize demo e
 # create network, if not exists
 docker network ls --filter "name=${DEMO_NET}" | grep -w "${DEMO_NET}"
 if [ $? -ne 0 ]; then
-  docker network create --driver overlay --subnet 10.20.0.1/24 ${DEMO_NET}
+  docker network create --driver overlay ${DEMO_NET}
 fi
 
 # create database volumes

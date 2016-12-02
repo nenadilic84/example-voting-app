@@ -6,7 +6,7 @@
 # remove nodes
 # run NUM_WORKERS workers with SWARM_TOKEN
 for i in $(seq "${NUM_WORKERS}"); do
-  docker node rm --force worker-${i} > /dev/null 2>&1
+  docker --host localhost:${i}2375 swarm leave > /dev/null 2>&1
   docker rm --force worker-${i} > /dev/null 2>&1
 done
 
