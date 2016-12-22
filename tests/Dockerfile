@@ -9,9 +9,9 @@ RUN npm install && npm ls
 
 ENV XUNIT_FILE /src/test-results/xunit-all.xml
 
-LABEL tugbot.test=true
-LABEL tugbot.results.dir=/src/test-results
-LABEL tugbot.event.docker=start
+LABEL tugbot-test=true
+LABEL tugbot-results-dir=/src/test-results
+LABEL tugbot-event-docker=start
 
 CMD ["npm", "test"]
 
