@@ -11,6 +11,6 @@ docker service create --name votests \
         --network ${DEMO_NET} \
         --env appHost=voting-app:80 \
         --env dbHost=db \
-        --label tugbot.swarm.events=update \
+        --label tugbot-swarm-events=update \
         --restart-condition none \
         ${DEMO_REP}/example-voting-app-tests:${DEMO_TAG}
