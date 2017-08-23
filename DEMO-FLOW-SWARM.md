@@ -38,7 +38,7 @@ Run in cloned directory:
 
 Run in cloned directory:
 
-    $ ./2_deploy_tugbot.sh
+    $ swarm/2_deploy_tugbot.sh
 
 The following Docker services will run: `es`, `kibana, ``tugbot-leader`, `tugbot-run`, `tugbot-collect` and `tugbot-result-service-es`.
 Elasticsearch serves as a database for the results collected by tugbot and Kibana is the UI layer.
