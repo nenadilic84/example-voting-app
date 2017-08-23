@@ -43,7 +43,7 @@ $curl -XGET http://${ES_HOST}:9200/_cat/indices | grep kibana | grep "yellow\|gr
 while [ $? -ne 0 ]; do
   sleep 2
   echo Waiting for Kibana index readiness
-  curl -XGET http://${ES_HOST}:9200/_cat/indices | grep "kibana" | grep "yellow\|green"
+  $curl -XGET http://${ES_HOST}:9200/_cat/indices | grep "kibana" | grep "yellow\|green"
 done
 
 # Configure Kibana objects mapping
